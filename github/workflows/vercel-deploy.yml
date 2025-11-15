@@ -11,7 +11,7 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
 
-    # Opcional: usar el environment de GitHub para que se vea en la pestaña "Deployments" x
+    # Opcional: usar el environment de GitHub para que se vea en la pestaña "Deployments"
     environment: |
       ${{
         github.ref == 'refs/heads/main' && 'prd' ||
