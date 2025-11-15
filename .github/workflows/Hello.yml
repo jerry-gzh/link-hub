@@ -14,4 +14,4 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Say hello
-        run: echo "GitHub Actions está funcionando 🚀"
+        run: echo "GitHub Actions está funcionando 🚀✴️"
