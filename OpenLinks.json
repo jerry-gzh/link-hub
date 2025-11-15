@@ -1,0 +1,37 @@
+{
+	"title": "OpenLinks",
+	"description": "Free JSON-Driven template for Astro.",
+	"url_base": "https://yoursite.com",
+	"theme": "brutalism",
+	"footer": "Made with ❤️ by <a href='https://e10y.dev'>E10Y</a>",
+	"profile":
+		{
+			"name": "Gerardo Guzmán",
+			"avatar": "avatar/Avatar_j.webp",
+			"description":"jerry_gzh",
+			"adult": false
+		}
+	,
+	"links": [
+		{
+			"name": "Find your photo",
+			"url": "https://www.lumepic.com/jerry?utm_source=pps&utm_campaign=jerry",
+			"icon": "/icons/Lumepic.svg"
+		},
+		{
+			"name": "Free HD photo gallery",
+			"url": "https://pixabay.com/es/users/20023746/",
+			"icon": "/icons/Pixabay.svg"
+		},
+				{
+			"name": "Recomendaciones sin filtro",
+			"url": "https://music.apple.com/mx/playlist/recomendaciones-sin-filtro/pl.u-WabZ6BZTReXbY9B?ls",
+			"icon": "/icons/Applemusic.svg"
+		},
+		{
+			"name": "Ride with me",
+			"url": "https://www.strava.com/athletes/53564660",
+			"icon": "/icons/Strava.svg"
+		}
+	]
+}
