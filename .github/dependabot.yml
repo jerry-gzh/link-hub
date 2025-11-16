@@ -1,19 +1,19 @@
-version: 1
+version: 2
 updates:
   # 1) Actualizaciones para dependencias de npm
   - package-ecosystem: "npm"
     directory: "/"
     schedule:
       interval: "monthly"        # daily | weekly | monthly
-    open-pull-requests-limit: 5 # max PRs abiertas
-    versioning-strategy: increase # always bump to latest allowed version
+    open-pull-requests-limit: 5  # max PRs abiertas
+    versioning-strategy: increase
     labels:
       - "dependencies"
     commit-message:
       prefix: "deps"
       include: "scope"
 
-  # 2) Actualizaciones para GitHub Actions (muy recomendado)
+  # 2) Actualizaciones para GitHub Actions
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
