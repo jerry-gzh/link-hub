@@ -6,11 +6,22 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "lint": "eslint . --ext .js,.ts,.astro",
+    "check": "tsc --noEmit"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.1.10",
     "astro": "^5.10.0",
     "tailwindcss": "^4.1.10"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^8.46.4",
+    "@typescript-eslint/parser": "^8.46.4",
+    "astro-eslint-parser": "^1.2.2",
+    "eslint": "^8.57.0",
+    "eslint-plugin-astro": "^1.5.0",
+    "eslint-plugin-jsx-a11y": "^6.10.2",
+    "typescript": "^5.9.3"
   }
 }
