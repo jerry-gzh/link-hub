@@ -1,9 +1,9 @@
 {
-	"title": "OpenLinks",
+	"title": "Jerry-Links",
 	"description": "Free JSON-Driven template for Astro.",
-	"url_base": "https://yoursite.com",
+	"url_base": "https://gerardoguzmanh.com",
 	"theme": "brutalism",
-	"footer": "Made with ❤️ by <a href='https://e10y.dev'>E10Y</a>",
+	"footer": "Made with ❤️ by <a href='https://www.instagram.com/jerry_gzh/'>Jerry</a>",
 	"profile":
 		{
 			"name": "Gerardo Guzmán",
@@ -24,7 +24,7 @@
 			"icon": "/icons/Pixabay.svg"
 		},
 				{
-			"name": "Recomendaciones sin filtro",
+			"name": "Unfiltered recommendations",
 			"url": "https://music.apple.com/mx/playlist/recomendaciones-sin-filtro/pl.u-WabZ6BZTReXbY9B?ls",
 			"icon": "/icons/Applemusic.svg"
 		},
