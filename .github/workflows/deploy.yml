@@ -1,7 +1,7 @@
 name: Deploy
 
 on:
-  pull_request:
+  push:
     branches: [ qas, main]
 
 permissions:
@@ -13,7 +13,6 @@ jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
-    needs: lint
 
     steps:
       - name: Checkout repository
