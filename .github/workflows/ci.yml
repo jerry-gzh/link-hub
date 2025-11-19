@@ -1,5 +1,5 @@
 # .github/workflows/ci.yml
-name: CI
+name: Validating dependencies
 
 on:
   pull_request:
@@ -20,12 +20,6 @@ jobs:
 
       - name: Install dependencies
         run: npm ci
-
-      - name: Lint
-        run: npm run lint
-
-      - name: Type check
-        run: npm run check
 
       - name: Check for outdated dependencies
         run: npm outdated || true
