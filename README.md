@@ -1,178 +1,187 @@
 # OpenLinks 🚀
 
-**OpenLinks** is a free, open-source Astro template for creating customizable link-in-bio pages. All configuration is handled via a single JSON file, making it extremely easy to personalize and deploy.
-
-![OpenLinks Screenshot](/OpenLinks.png)
+**OpenLinks** es un template de Astro completamente impulsado por JSON para crear páginas de links con enfoque DevOps: todo el contenido vive en `OpenLinks.json` y los flujos de GitHub Actions están diseñados para practicar pipelines modernos.
 
 ---
 
-## ✨ Features
-
-⭐ **100% JSON-driven:** Configure your profile, links, theme, and more via [`OpenLinks.json`](OpenLinks.json).  
-⭐ **Customizable themes:** Switch between built-in themes or create your own in [`themes.ts`](themes.ts).  
-⭐ **Responsive design:** Looks great on mobile and desktop.  
-⭐ **Custom icons support:** Add SVG icons to your links.  
-⭐ **TailwindCSS integration:** Modern, easily editable styles.  
-⭐ **Adult content warning:** Optional +18 warning banner.  
-⭐ **SEO & social meta:** Optimized for sharing on social media.  
-⭐ **Easy deployment:** Works with Vercel, Netlify, GitHub Pages, and more.
-
----
-
-## 📦 Project Structure
+## Project Structure (Updated)
 
 ```text
 /
-├── OpenLinks.json         # Main config (profile, links, theme, etc)
-├── themes.ts              # Available themes
+├── OpenLinks.json          # Config principal (perfil, links, tema, etc.)
+├── themes.ts               # Temas disponibles y estilos por tema
 ├── src/
-│   ├── components/        # Reusable Astro components
-│   ├── layouts/           # Main layout
-│   ├── lib/               # Utilities (e.g. getTheme)
-│   ├── pages/             # Astro pages
-│   └── styles/            # Global styles and Tailwind
-├── public/                # Static files (icons, fonts, avatar)
-├── astro.config.mjs       # Astro + Tailwind config
-├── package.json           # Dependencies and scripts
+│   ├── components/         # Componentes Astro reutilizables
+│   ├── layouts/            # Layout principal
+│   ├── lib/                # Utilidades (getTheme)
+│   ├── pages/              # Páginas Astro
+│   └── styles/             # Tailwind y estilos globales
+├── public/                 # Íconos, fuentes y assets estáticos
+├── .github/workflows/
+│   ├── ci.yml              # Higiene de dependencias
+│   ├── validate.yml        # Lint y type-check en PRs
+│   ├── deploy.yml          # Build + deploy a Vercel
+│   └── codeql.yml          # Escaneo de seguridad CodeQL
+├── astro.config.mjs
+├── package.json
+├── tsconfig.json
 └── README.md
 ```
 
 ---
 
-## 🚀 Getting Started
+## Workflow Pipelines (DevOps Practice)
 
-1. **Clone the repository:**
+Estos flujos YML están pensados para ejercitar un ciclo Dev → QA → Prod, con controles y despliegues automatizados:
+
+### `.github/workflows/validate.yml` — PR linting & type safety
+- **Trigger:** `pull_request` hacia `dev`, `qas` o `main`.
+- **Configuración:** Node 20 con caché de npm.
+- **Tests:** `npm run lint` aplica ESLint y `npm run check` ejecuta `astro check` + type-checking. Ambos deben pasar antes de fusionar, garantizando calidad del código.
+
+### `.github/workflows/ci.yml` — Dependency hygiene
+- **Trigger:** `pull_request` hacia `dev`, `qas` o `main`.
+- **Pasos clave:** `npm ci` instala dependencias limpias, `npm outdated` lista paquetes obsoletos y `npm audit --audit-level=high` detecta vulnerabilidades importantes. Aunque no falla el pipeline, entrega visibilidad continua de deuda técnica.
+
+### `.github/workflows/deploy.yml` — Build & Vercel promotion
+- **Trigger:** `push` a `qas` o `main`.
+- **Job `build`:** instala dependencias (Node 20) y corre `npm run build` para asegurar que el bundle sea válido.
+- **Job `deploy`:** depende de `build`, vuelve a compilar para entorno limpio, instala Vercel CLI y despliega usando los secretos `VERCEL_TOKEN`, `VERCEL_ORG_ID` y `VERCEL_PROJECT_ID`. El `environment` se asigna automáticamente (`qas` o `prd`) según la rama y los despliegues de `main` usan `vercel --prod`.
+
+### `.github/workflows/codeql.yml` — Advanced security scanning
+- **Trigger:** `pull_request` hacia `dev` o `qas` (se puede habilitar cron).
+- **Cobertura:** ejecuta CodeQL para `javascript-typescript` en runners Ubuntu, generando reportes de vulnerabilidades y errores lógicos bajo `Security > Code scanning`.
+
+---
+
+## Secrets & Environments
+
+Estos secretos deben existir en los ambientes de GitHub Actions usados por `deploy.yml` (al menos en `qas` y `prd`). Para pruebas locales o flujos alternos puedes definirlos también en `dev`.
+
+| Secret             | Descripción                                                                 | Ambientes recomendados |
+|--------------------|-----------------------------------------------------------------------------|------------------------|
+| `VERCEL_TOKEN`     | Token personal o de servicio con permisos para desplegar proyectos en Vercel.| `qas`, `prd` (opcional `dev`) |
+| `VERCEL_ORG_ID`    | Identificador de la organización/equipo en Vercel donde vive el proyecto.    | `qas`, `prd` (opcional `dev`) |
+| `VERCEL_PROJECT_ID`| Identificador del proyecto en Vercel que recibirá los despliegues.          | `qas`, `prd` (opcional `dev`) |
+
+> Configura cada secreto en la sección **Settings → Secrets and variables → Actions → Environments** y asigna los ambientes `qas` y `prd` para que el job `deploy` pueda leerlos automáticamente.
+
+---
+
+## Getting Started
+
+1. **Clona el repositorio**
    ```sh
    git clone https://github.com/E10YDEV/OpenLinks.git
    cd OpenLinks
    ```
-
-2. **Install dependencies:**
+2. **Instala dependencias**
    ```sh
    npm install
    ```
-
-3. **Customize your page:**
-   - Edit [`OpenLinks.json`](OpenLinks.json) to change your profile, links, theme, etc.
-   - (Optional) Edit [`themes.ts`](themes.ts) to add or modify themes.
-
-4. **Start the development server:**
+3. **Personaliza tu página**
+   - Edita [`OpenLinks.json`](OpenLinks.json) para perfil, links y tema.
+   - (Opcional) modifica [`themes.ts`](themes.ts) para nuevos estilos.
+4. **Servidor de desarrollo**
    ```sh
    npm run dev
    ```
-   Open [http://localhost:4321](http://localhost:4321) in your browser.
-
-5. **Build for production:**
+   Visita [http://localhost:4321](http://localhost:4321).
+5. **Build de producción**
    ```sh
    npm run build
    ```
-
-6. **Preview the production build:**
+6. **Preview del build**
    ```sh
    npm run preview
    ```
 
 ---
 
-## ⚙ Configuration
+## Configuration
 
-- **Profile & links:** All managed in [`OpenLinks.json`](OpenLinks.json).
-- **Themes:** Set the `"theme"` value in the JSON to any available in [`themes.ts`](themes.ts): `default`, `ocean`, `forest`, `sunrise`, `ness`, `arctic`, `cherry`, `brutalism`.
-- **Icons:** Place your SVGs in `public/icons/` and reference the path in each link.
+- **Fuente única de verdad:** `OpenLinks.json` define SEO, perfil, links, tema y pie de página. Cualquier cambio se refleja inmediatamente en desarrollo.
+- **Temas:** ajusta la propiedad `"theme"` con las claves disponibles en [`themes.ts`](themes.ts) (`default`, `ocean`, `forest`, `sunrise`, `ness`, `arctic`, `cherry`, `brutalism`, etc.) o crea nuevas entradas.
+- **Íconos e imágenes:** guarda SVGs y assets en `public/` (por ejemplo `public/icons/MyIcon.svg`) y referencia la ruta relativa.
+- **Leyendas hover:** cada link puede añadir `legend` (o `description`) para mostrar un tooltip animado en la UI.
 
 ---
-## 📝 How to Edit `OpenLinks.json`
 
-All your profile information, links, and theme settings are managed in the `OpenLinks.json` file at the root of the project. Here’s how to customize it:
-
-### Example Structure
+## Example `OpenLinks.json`
 
 ```json
 {
-  "name": "Your Name",
-  "description": "Short bio or description.",
-  "avatar": "/avatar.png",
+  "title": "Your Links",
+  "description": "Free JSON-driven template for Astro.",
+  "url_base": "https://example.com",
   "theme": "ocean",
+  "footer": "Made with ❤️ by You",
+  "profile": {
+    "name": "Your Name",
+    "avatar": "avatar/me.webp",
+    "description": "@yourhandle",
+    "instagram": "https://instagram.com/yourhandle",
+    "adult": false
+  },
   "links": [
     {
-      "title": "GitHub",
-      "url": "https://github.com/yourusername",
-      "icon": "/icons/github.svg"
+      "name": "Portfolio",
+      "url": "https://example.com/portfolio",
+      "icon": "/icons/web.svg",
+      "legend": "Explora mis últimos proyectos."
     },
     {
-      "title": "Twitter",
-      "url": "https://twitter.com/yourusername",
-      "icon": "/icons/twitter.svg"
+      "name": "Newsletter",
+      "url": "https://example.com/newsletter",
+      "icon": "/icons/email.svg",
+      "legend": "Suscríbete para recibir novedades."
     }
-  ],
-  "adultContent": false
+  ]
 }
 ```
 
-### Fields
+---
 
-- **name:** Your display name.
-- **description:** A short description or tagline.
-- **avatar:** Path to your profile image (place it in the `public/` folder).
-- **theme:** Choose a theme from those available in `themes.ts`.
-- **links:** An array of your links. Each link can have:
-  - `title`: The label shown on your page.
-  - `url`: The destination URL.
-  - `icon`: Path to an SVG icon (place SVGs in `public/icons/`).
-- **adultContent:** Set to `true` to show a +18 warning banner.
+## Fields
 
-### Customizing
-
-- Add, remove, or edit links as needed.
-- Change the theme by updating the `"theme"` value.
-- Update your avatar or bio at any time.
-
-After saving changes to `OpenLinks.json`, your site will update automatically in development mode.
+- `title`: título mostrado en SEO y en la cabecera del navegador.
+- `description`: metadescripción y resumen principal.
+- `url_base`: URL canónica usada en metadatos y Open Graph.
+- `theme`: clave del objeto dentro de [`themes.ts`](themes.ts) para decidir fondos, botones e interacciones.
+- `footer`: HTML permitido para mostrar créditos o enlaces externos.
+- `profile`
+  - `name`: texto grande junto al avatar.
+  - `avatar`: ruta en `public/` (JPEG, PNG o WebP).
+  - `description`: alias corto o bio.
+  - `instagram`: URL opcional; si existe, el avatar se convierte en enlace directo a Instagram.
+  - `adult`: `true` muestra un banner +18 antes de los links.
+- `links[]`
+  - `name`: etiqueta visible en cada botón.
+  - `url`: destino del enlace (se abre en la misma pestaña; puedes modificarlo si lo prefieres).
+  - `icon`: ruta a un SVG cuadrado; se usa fallback `/Web.svg` si no existe.
+  - `legend`: texto mostrado en el tooltip hover (también se usa `description` o `name` como respaldo).
 
 ---
 
-## 🛠 Available Scripts
+## Customizing
 
-| Command            | Action                                         |
-|--------------------|------------------------------------------------|
-| `npm run dev`      | Start the development server                   |
-| `npm run build`    | Build the site for production in `/dist`       |
-| `npm run preview`  | Preview the production build locally           |
-| `npm run astro`    | Run Astro CLI commands                         |
+- **Temas personalizados:** duplica un entry en `themes.ts` y ajusta clases de Tailwind (`background`, `links_button`, `links_text`, etc.) para nuevos estilos.
+- **Componentes Astro:** `src/components/` contiene piezas como `link.astro`, `header.astro` o `footer.astro`; puedes ampliar props o estilos sin romper el flujo DevOps.
+- **Íconos y tipografías:** coloca assets en `public/` y referencia desde el JSON o desde CSS global (`src/styles/global.css`).
+- **Pipelines:** ajusta los YAML si necesitas otros ambientes (por ejemplo, agregando pruebas unitarias o gates en `validate.yml`). El diseño modular permite experimentar con estrategias DevOps avanzadas.
 
 ---
 
-## 🛣 Upcoming Features
+## Scripts
 
-OpenLinks is actively developed! Here’s what’s coming soon:
-
-- **Link sharing system:** Easily share and manage your links with others.
-- **Advanced customization:** More options to personalize layouts and components.
-- **SVG icon color support:** Change the color of your SVG icons directly from your configuration.
-- **More themes:** A wider variety of built-in themes to choose from.
-
-Stay tuned for updates and feel free to suggest features or contribute!
-
----
-
-## 🤝 Contributing
-
-Contributions are welcome! If you have ideas for new features, improvements, or bug fixes, feel free to open an issue or submit a pull request.
-
-**How to contribute:**
-1. Fork the repository.
-2. Create a new branch for your feature or fix.
-3. Make your changes and commit them.
-4. Open a pull request describing your changes.
-
-Please follow the existing code style and include clear commit messages. Thank you for helping make OpenLinks better!
+| Command         | Acción                                                |
+|-----------------|--------------------------------------------------------|
+| `npm run dev`   | Inicia el servidor de desarrollo                       |
+| `npm run build` | Genera el sitio para producción en `/dist`             |
+| `npm run preview` | Sirve el build de producción localmente             |
+| `npm run lint`  | Ejecuta ESLint con la config del proyecto              |
+| `npm run check` | Corre `astro check` + validaciones de TypeScript       |
 
 ---
 
-## 📄 License
-
-MIT. Made with ❤ by [E10Y](https://github.com/E10YDEV).
-
----
-
-Customize, deploy, and share your link-in-bio page in minutes!
+Mantén tus cambios en `OpenLinks.json`, deja que los pipelines hagan el resto y practica un flujo Dev → QA → Prod completo con Astro. ¡Feliz automatización! 💻✨

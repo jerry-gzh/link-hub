@@ -1,16 +1,37 @@
 ---
 const { profile, avatarClass } = Astro.props;
+const instagramUrl = profile.instagram;
 ---
 
 <div class="text-center mb-8 animate-fade-in">
 	<div class="relative inline-block mb-4">
-		<img
-			src={profile.avatar || "avatar/Avatar.webp"}
-			alt={`${profile.name} avatar`}
-			width="40"
-			height="40"
-			class={avatarClass}
-		/>
+		{
+			instagramUrl ? (
+				<a
+					href={instagramUrl}
+					target="_blank"
+					rel="noopener noreferrer"
+					class="group block focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/70"
+					aria-label={`Visita Instagram de ${profile.name}`}
+				>
+					<img
+						src={profile.avatar || "avatar/Avatar.webp"}
+						alt={`${profile.name} avatar`}
+						width="40"
+						height="40"
+						class={`${avatarClass} transition-transform duration-200 group-hover:scale-105`}
+					/>
+				</a>
+			) : (
+				<img
+					src={profile.avatar || "avatar/Avatar.webp"}
+					alt={`${profile.name} avatar`}
+					width="40"
+					height="40"
+					class={avatarClass}
+				/>
+			)
+		}
 		<h1 class="text-2xl font-bold  mt-6 mb-1">
 			{profile.name}
 		</h1>

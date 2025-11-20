@@ -1,37 +1,42 @@
 {
 	"title": "Jerry-Links",
-	"description": "Free JSON-Driven template for Astro.",
+	"description": "Fotografía, playlists, rodaditas e inspiración creativa",
 	"url_base": "https://gerardoguzmanh.com",
 	"theme": "brutalism",
 	"footer": "Made with ❤️ by <a href='https://www.instagram.com/jerry_gzh/'>Jerry</a>",
-	"profile":
-		{
-			"name": "Gerardo Guzmán",
-			"avatar": "avatar/Avatar_j.webp",
-			"description":"jerry_gzh",
-			"adult": false
-		}
+		"profile":
+			{
+				"name": "Gerardo Guzmán",
+				"avatar": "avatar/Avatar_j.webp",
+				"description":"jerry_gzh",
+				"instagram": "https://www.instagram.com/jerry_gzh/",
+				"adult": false
+			}
 	,
 	"links": [
 		{
 			"name": "Find your photo",
 			"url": "https://www.lumepic.com/jerry?utm_source=pps&utm_campaign=jerry",
-			"icon": "/icons/Lumepic.svg"
+			"icon": "/icons/Lumepic.svg",
+			"legend": "Explora y descarga tus fotos favoritas."
 		},
 		{
 			"name": "Free HD photo gallery",
 			"url": "https://pixabay.com/es/users/20023746/",
-			"icon": "/icons/Pixabay.svg"
+			"icon": "/icons/Pixabay.svg",
+			"legend": "Accede a mi colección HD en Pixabay."
 		},
 				{
 			"name": "Unfiltered recommendations",
 			"url": "https://music.apple.com/mx/playlist/recomendaciones-sin-filtro/pl.u-WabZ6BZTReXbY9B?ls",
-			"icon": "/icons/Applemusic.svg"
+			"icon": "/icons/Applemusic.svg",
+			"legend": "Escucha mi playlist sin filtros en Apple Music."
 		},
 		{
 			"name": "Ride with me",
 			"url": "https://www.strava.com/athletes/53564660",
-			"icon": "/icons/Strava.svg"
+			"icon": "/icons/Strava.svg",
+			"legend": "Sigue mis rutas y entrenamientos en Strava."
 		}
 	]
 }
