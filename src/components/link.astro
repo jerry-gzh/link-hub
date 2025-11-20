@@ -1,11 +1,16 @@
 ---
-
-
 const { link,theme,buttonClass, textClass } = Astro.props;
+const legendText = link.legend ?? link.description ?? link.name;
 ---
 
-<li>
-  <div class={buttonClass}>
+<li class="relative">
+  <div class={`${buttonClass} relative`}>
+    <span
+      aria-hidden="true"
+      class="pointer-events-none absolute left-1/2 -translate-x-1/2 -top-4 text-xs font-medium px-3 py-1 rounded-full bg-black/80 text-white opacity-0 group-hover:opacity-100 group-hover:-top-10 transition-all duration-200"
+    >
+      {legendText}
+    </span>
     <a href={link.url}>
       <div class="flex items-center justify-between">
         <div class="flex items-center gap-3">
