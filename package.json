@@ -14,12 +14,11 @@
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.1.10",
-    "@vercel/speed-insights": "^1.2.0",
-    "astro": "^5.10.0",
+    "astro": "^5.15.9",
     "tailwindcss": "^4.1.10"
   },
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^8.46.4",
+    "@typescript-eslint/eslint-plugin": "^8.47.0",
     "@typescript-eslint/parser": "^8.46.4",
     "astro-eslint-parser": "^1.2.2",
     "eslint": "^8.57.0",
