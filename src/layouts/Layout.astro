@@ -22,6 +22,15 @@ const { themeClass, meta } = Astro.props;
 		<meta name="twitter:description" content={meta.description} />
 		<link rel="canonical" href={meta.url_base} />
 	</head>
+	<!-- Google tag (gtag.js) -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-59XYM34GSR"></script>
+	<script>
+	  	window.dataLayer = window.dataLayer || [];
+	  	function gtag(){dataLayer.push(arguments);}
+	  	gtag('js', new Date());
+		
+	  	gtag('config', 'G-59XYM34GSR');
+	</script>
 	<body class={`min-h-screen ${themeClass.background}`}>
 		<div class="container max-w-md mx-auto px-4 py-8">
 			<header><slot name="header" /></header>
