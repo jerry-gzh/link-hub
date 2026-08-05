@@ -3,7 +3,11 @@ import "../styles/global.css";
 import { withBase } from "../lib/withBase";
 
 const { themeClass, meta } = Astro.props;
-const faviconUrl = withBase("favicon/favicon.svg");
+const faviconUrl = withBase("favicon/favicon.svg?v=2");
+const faviconPngUrl = withBase("favicon/favicon-32x32.png?v=2");
+const faviconIcoUrl = withBase("favicon/favicon.ico?v=2");
+const appleTouchIconUrl = withBase("favicon/apple-touch-icon.png?v=2");
+const manifestUrl = withBase("manifest.webmanifest");
 ---
 
 <!doctype html>
@@ -14,7 +18,12 @@ const faviconUrl = withBase("favicon/favicon.svg");
 		<title>{meta.title}</title>
 		<meta name="description" content={meta.description} />
 		<meta name="generator" content={Astro.generator} />
-		<link rel="icon" href={faviconUrl} />
+		<link rel="icon" type="image/svg+xml" href={faviconUrl} />
+		<link rel="icon" type="image/png" sizes="32x32" href={faviconPngUrl} />
+		<link rel="icon" href={faviconIcoUrl} sizes="any" />
+		<link rel="apple-touch-icon" sizes="180x180" href={appleTouchIconUrl} />
+		<link rel="manifest" href={manifestUrl} />
+		<meta name="theme-color" content="#7C3AED" />
 		<meta property="og:title" content={meta.title} />
 		<meta property="og:description" content={meta.description} />
 		<meta property="og:type" content="website" />
