@@ -1,6 +1,9 @@
 ---
-const { link,theme,buttonClass, textClass } = Astro.props;
+import { withBase } from "../lib/withBase";
+
+const { link, buttonClass, textClass } = Astro.props;
 const legendText = link.legend ?? link.description ?? link.name;
+const iconUrl = withBase(link.icon || "icons/Web.svg");
 ---
 
 <li class="relative">
@@ -16,7 +19,7 @@ const legendText = link.legend ?? link.description ?? link.name;
         <div class="flex items-center gap-3">
           <div class="p-2">
             <img
-              src={link.icon || "/Web.svg"}
+              src={iconUrl}
               alt={`${link.name} icon`}
               width="30"
               height="30"
