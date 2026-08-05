@@ -86,7 +86,7 @@ Estos secretos deben existir en los ambientes de GitHub Actions usados por `depl
    ```sh
    npm run dev
    ```
-   Visita [http://localhost:4321](http://localhost:4321).
+   Visita [http://localhost:4321/links/](http://localhost:4321/links/).
 5. **Build de producción**
    ```sh
    npm run build
@@ -101,9 +101,26 @@ Estos secretos deben existir en los ambientes de GitHub Actions usados por `depl
 ## Configuration
 
 - **Fuente única de verdad:** `OpenLinks.json` define SEO, perfil, links, tema y pie de página. Cualquier cambio se refleja inmediatamente en desarrollo.
+- **Ruta pública:** Astro genera páginas y recursos bajo `/links`; la URL canónica es `https://gerardoguzmanh.com/links/`.
+- **Enrutamiento de Vercel:** `vercel.json` traduce `/links` y `/links/*` a la raíz del artefacto estático que genera Astro.
 - **Temas:** ajusta la propiedad `"theme"` con las claves disponibles en [`themes.ts`](themes.ts) (`default`, `ocean`, `forest`, `sunrise`, `ness`, `arctic`, `cherry`, `brutalism`, etc.) o crea nuevas entradas.
-- **Íconos e imágenes:** guarda SVGs y assets en `public/` (por ejemplo `public/icons/MyIcon.svg`) y referencia la ruta relativa.
+- **Íconos e imágenes:** guarda SVGs y assets en `public/` (por ejemplo `public/icons/MyIcon.svg`) y referencia rutas relativas al base, como `icons/MyIcon.svg`.
 - **Leyendas hover:** cada link puede añadir `legend` (o `description`) para mostrar un tooltip animado en la UI.
+
+## Deployment en Vercel
+
+El proyecto se despliega de forma independiente y utiliza dos direcciones:
+
+- `https://links.gerardoguzmanh.com/links/` como origen estable asignado a este proyecto en Vercel.
+- `https://gerardoguzmanh.com/links/` como URL pública, servida mediante las rewrites de `consulting_services`.
+
+Para publicar:
+
+1. Ejecuta `npm ci`, `npm run lint`, `npm run check`, `npm run test` y `npm run build`.
+2. Despliega la rama y comprueba `/links/` en la URL Preview de Vercel.
+3. Asigna únicamente `links.gerardoguzmanh.com` a este proyecto; el dominio raíz pertenece a `consulting_services`.
+4. Confirma que `https://links.gerardoguzmanh.com/links/` carga la página y sus recursos.
+5. Despliega las rewrites de `consulting_services` y valida `https://gerardoguzmanh.com/links/`.
 
 ---
 
@@ -127,13 +144,13 @@ Estos secretos deben existir en los ambientes de GitHub Actions usados por `depl
     {
       "name": "Portfolio",
       "url": "https://example.com/portfolio",
-      "icon": "/icons/web.svg",
+      "icon": "icons/web.svg",
       "legend": "Explora mis últimos proyectos."
     },
     {
       "name": "Newsletter",
       "url": "https://example.com/newsletter",
-      "icon": "/icons/email.svg",
+      "icon": "icons/email.svg",
       "legend": "Suscríbete para recibir novedades."
     }
   ]

@@ -1,6 +1,9 @@
 ---
+import { withBase } from "../lib/withBase";
+
 const { profile, avatarClass } = Astro.props;
 const instagramUrl = profile.instagram;
+const avatarUrl = withBase(profile.avatar || "avatar/Avatar.webp");
 ---
 
 <div class="text-center mb-8 animate-fade-in">
@@ -15,7 +18,7 @@ const instagramUrl = profile.instagram;
 					aria-label={`Visita Instagram de ${profile.name}`}
 				>
 					<img
-						src={profile.avatar || "avatar/Avatar.webp"}
+						src={avatarUrl}
 						alt={`${profile.name} avatar`}
 						width="40"
 						height="40"
@@ -24,7 +27,7 @@ const instagramUrl = profile.instagram;
 				</a>
 			) : (
 				<img
-					src={profile.avatar || "avatar/Avatar.webp"}
+					src={avatarUrl}
 					alt={`${profile.name} avatar`}
 					width="40"
 					height="40"

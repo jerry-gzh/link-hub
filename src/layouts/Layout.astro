@@ -1,18 +1,20 @@
 ---
 import "../styles/global.css";
-import  SpeedInsights  from "@vercel/speed-insights/astro"
+import { withBase } from "../lib/withBase";
+
 const { themeClass, meta } = Astro.props;
+const faviconUrl = withBase("favicon/favicon.svg");
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="es">
 	<head>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<title>{meta.title}</title>
 		<meta name="description" content={meta.description} />
 		<meta name="generator" content={Astro.generator} />
-		<link rel="icon" href="favicon/favicon.svg" />
+		<link rel="icon" href={faviconUrl} />
 		<meta property="og:title" content={meta.title} />
 		<meta property="og:description" content={meta.description} />
 		<meta property="og:type" content="website" />
@@ -21,16 +23,20 @@ const { themeClass, meta } = Astro.props;
 		<meta name="twitter:title" content={meta.title} />
 		<meta name="twitter:description" content={meta.description} />
 		<link rel="canonical" href={meta.url_base} />
+		<script
+			is:inline
+			async
+			src="https://www.googletagmanager.com/gtag/js?id=G-59XYM34GSR"
+		></script>
+		<script is:inline>
+			window.dataLayer = window.dataLayer || [];
+			function gtag() {
+				dataLayer.push(arguments);
+			}
+			gtag('js', new Date());
+			gtag('config', 'G-59XYM34GSR');
+		</script>
 	</head>
-	<!-- Google tag (gtag.js) -->
-	<script async src="https://www.googletagmanager.com/gtag/js?id=G-59XYM34GSR"></script>
-	<script>
-		{`window.dataLayer = window.dataLayer || [];
-		function gtag(){dataLayer.push(arguments);}
-		gtag('js', new Date());
-		
-		gtag('config', 'G-59XYM34GSR');`}
-	</script>
 	<body class={`min-h-screen ${themeClass.background}`}>
 		<div class="container max-w-md mx-auto px-4 py-8">
 			<header><slot name="header" /></header>
